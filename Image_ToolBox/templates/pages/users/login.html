@@ -1,0 +1,96 @@
+{% extends 'pages/users/login_and_registeration_base.html' %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}Login | Elsherbiniy ImageBox{% endblock title %}
+
+<!-- Current Page Style -->
+{% block currentPageStyles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/authentication/form-1.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms/theme-checkbox-radio.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms/switches.css' %}" />
+{% endblock currentPageStyles %}
+
+
+<!-- Body Content-->
+{% block body %}
+
+        <div class="form-container">
+            <div class="form-form">
+                <div class="form-form-wrap">
+                    <div class="form-container">
+                        <div class="form-content">
+
+                            <!-- Page Title -->
+                            <h1 style="font-size: 1.5rem;">LogIn to
+                                <a href="{% url 'Login'%}" style="display: block; font-size: 2rem; font-weight: 800;">
+                                    <span class="brand-name">ELSHERBINIY 
+                                        <span style="font-weight: 900;">IMAGEBOX</span>
+                                    </span>
+                                </a>
+                            </h1>
+                            
+                            <p class="signup-link">New Here? <a href="{% url 'Registeration' %}">Create an account</a></p>
+                            <form class="text-left" method="POST">
+                                <div class="form">
+                                    
+                                    <!-- SQL INJECTION SECURITY LEVEL -->
+                                    {% csrf_token %}
+
+                                    <!-- Username input -->
+                                    <div id="username-field" class="field-wrapper input">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <input id="id_username" autocapitalize="none" autocomplete="none" name="username" type="text" class="form-control" placeholder="Username" required>
+                                    </div>
+
+                                    <!-- Password input -->
+                                    <div id="password-field" class="field-wrapper input mb-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                        <input id="id_password" name="password" autocomplete="none" type="password" class="form-control" placeholder="Password" required>
+                                    </div>
+
+                                    <!-- Show Password Button -->
+                                    <div class="d-sm-flex justify-content-between">
+
+                                        <!-- Show Password -->
+                                        <div class="field-wrapper toggle-pass">
+                                            <p class="d-inline-block">Show Password</p>
+                                            <label class="switch s-primary">
+                                                <input type="checkbox" id="toggle-password" class="d-none">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+
+                                        <!-- Submit BUtton -->
+                                        <div class="field-wrapper">
+                                            <button type="submit" class="btn btn-primary" value="">Log In</button>
+                                        </div>
+                                        
+                                    </div>
+
+
+                                </div>
+                            </form>                        
+                            <p class="terms-conditions">© 2021 All Rights Reserved for <a href="index.html">El-sherbiniy</a></p>
+
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+            <div class="form-image">
+                <div class="l-image" style="background-image: url('/static/img/Image_Box_2.svg'); background-size: 100%;">
+                </div>
+            </div>
+        </div>
+
+
+{% endblock body %}
+
+
+<!-- Current Page Scripts Files -->
+{% block currentPageScripts %}
+
+    <!-- Form Script -->
+    <script src="{% static 'js/authentication/form-1.js' %}"></script>
+
+{% endblock currentPageScripts %}

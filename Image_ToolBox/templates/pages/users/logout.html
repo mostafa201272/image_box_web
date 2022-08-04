@@ -1,0 +1,66 @@
+{% extends 'pages/users/login_and_registeration_base.html' %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}Logout | Elsherbiniy ImageBox{% endblock title %}
+
+<!-- Current Page Style -->
+{% block currentPageStyles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/authentication/form-1.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms/theme-checkbox-radio.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms/switches.css' %}" />
+{% endblock currentPageStyles %}
+
+
+<!-- Body Content-->
+{% block body %}
+
+        <div class="form-container">
+            <div class="form-form">
+                <div class="form-form-wrap">
+                    <div class="form-container">
+                        <div class="form-content">
+
+                            <!-- Page Title -->
+                            <h1 style="font-size: 1.5rem;">
+                                <a href="{% url 'Login'%}" style="display: block; font-size: 2rem; font-weight: 800;">
+                                    <span class="brand-name">ELSHERBINIY 
+                                        <span style="font-weight: 900;">IMAGEBOX</span>
+                                    </span>
+                                </a>
+                            </h1>
+                            
+                            <p>
+                                Thank you for your time, please visit us as soon as possible.
+                            </p>
+
+                            <div style="margin-top: 30px;">
+                                <a href="{% url 'Login' %}" class="btn btn-success mb-2">Login now</a>
+                                <span style="display:inline-block; margin-left: 20px; margin-right: 20px; font-size: 18px;">OR</span>
+                                <a href="{% url 'Registeration' %}" class="btn btn-outline-warning mb-2">Create new account</a>
+
+                            </div>
+                                                
+                            <p class="terms-conditions">© 2021 All Rights Reserved for <a href="index.html">El-sherbiniy</a></p>
+
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+            <div class="form-image">
+                <div class="l-image" style="background-image: url('/static/img/Image_Box_2.svg'); background-size: 100%;">
+                </div>
+            </div>
+        </div>
+
+
+{% endblock body %}
+
+
+<!-- Current Page Scripts Files -->
+{% block currentPageScripts %}
+
+    <!-- Form Script -->
+    <script src="{% static 'js/authentication/form-1.js' %}"></script>
+
+{% endblock currentPageScripts %}

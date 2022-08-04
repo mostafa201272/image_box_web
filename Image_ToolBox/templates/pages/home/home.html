@@ -1,0 +1,395 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+<!-- Page Title -->
+{% block title %}Home | Elsherbiniy ImageBox{% endblock title %}
+
+<!-- Current Page Style -->
+{% block currentPageStyles %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/forms/theme-checkbox-radio.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'plugins/jquery-ui/jquery-ui.min.css' %}" /> -->
+
+    <link href="{% static 'plugins/animate/animate.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/components/custom-modal.css' %}" rel="stylesheet" type="text/css" />
+    
+    <style>
+
+        /* Update Add Form Footer Padding */
+        .searchable-container .modal-footer{
+            padding: 15px 15px 0px 15px;
+        }
+
+        /* Project Card Styles */
+        .project_card{
+            padding: 20px 20px 5px 20px;
+            border-radius: 20px;
+            border: 0;
+            position: relative;
+            width: 80%;
+            z-index: 2;
+        }
+
+        
+        .project_lastupdate{
+            font-size: 14px;
+            color: #ccc;
+        }
+        .project_state{
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #ccc;
+            border-radius: 50%;
+            top: 30px;
+            right: 20px;
+        }
+
+        .project_state.project_complete{
+            background-color: #4caf50;
+        }
+        .project_state.project_Not_start{
+            background-color: #dc3545;
+        }
+        .project_state.project_Pending{
+            background-color: #ffc107;
+        }
+        .project_state.project_Working_on{
+            background-color: #2196f3;
+        }
+
+        .project-effects{
+            margin-top: 50px;
+            margin-bottom: 10px;
+
+            display: flex;
+            align-content: stretch;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .project-effects .effect_icon{
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 2px;
+
+        }
+        .project-effects .effects_values{
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+
+        }
+        .project-effects .effect_title{
+            display: inline-block;
+            font-size: 16px;
+            margin-left: 5px;
+
+        }
+
+        .progress_data{
+            display: flex;
+            justify-content: space-between;
+        }
+        .progress_data span{
+            font-size: 14px;
+        }
+
+
+        .card-controls {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(-40%, -50%);
+            width: 20%;
+            align-items: end;
+            z-index: 1;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .card-controls div:first-child{
+            margin-bottom: 20px;
+        }
+
+        .card-controls div{
+            padding: 5px;
+            cursor: pointer;
+
+        }
+
+        .card{
+            box-shadow: 10px 10px 10px #f6f6f6;
+            border: 0;
+        }
+
+        .modal-content .modal-footer .btn {
+            font-weight: 600;
+            padding: 10px 25px;
+            letter-spacing: 1px;
+        }
+    </style>
+
+{% endblock currentPageStyles %}
+
+
+<!-- Body Content-->
+{% block body %}
+
+    
+    <!-- Section Title and Theme control -->
+    <div class="page-header">
+        
+        <!-- Navigation data -->
+        <nav class="breadcrumb-one" aria-label="breadcrumb">
+            <div class="title">
+                <h3>All Projects</h3>
+            </div>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0);">Projects</a></li>
+                <li class="breadcrumb-item active"  aria-current="page"><a href="javascript:void(0);">All Projects</a></li>
+            </ol>
+        </nav>
+
+        <!-- Right side data -->
+        <div class="toggle-switch" style="align-items: flex-start;">
+            
+            <!-- Add Project Button -->
+            <button class="btn btn-outline-danger mr-3" style="font-weight: 700;" data-toggle="modal" data-target="#Add_Project">Create project</button>
+
+            <!-- Change theme button -->
+            <label class="switch s-icons s-outline  s-outline-secondary">
+                <input type="checkbox" checked="" class="theme-shifter">
+                <span class="slider round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </span>
+            </label>
+
+        </div>
+    </div>
+
+    <!-- Section Body -->
+    <div class="row layout-spacing layout-top-spacing" id="cancel-row">
+        <div class="col-lg-12">
+            <div class="widget-content searchable-container list">
+
+                <!-- Projects -->
+                <div class="row">
+                    
+                    {% for project in Projects%}
+
+                        <div class="col-md-3 mb-4">
+                            <div class="card project_card">
+
+                                <div class="project-head">
+                                    <!-- Project name -->
+                                    <h2 >{{project.Project_Name}}</h2>
+
+                                    <!-- Project lastupdate -->
+                                    <span class="project_lastupdate">{{project.Lastupdate}}</span>
+                                    
+                                    <!-- Project Status -->
+                                    <span 
+                                        title="
+                                            {% if project.status == '0' %}
+                                                Project complete
+                                            {% elif project.status == '1' %}
+                                                Project not started
+                                            {% elif project.status == '2' %}
+                                                Project pending
+                                            {% elif project.status == '3' %}
+                                                Project working on
+                                            {% endif %}
+                                        " 
+
+                                        class="project_state 
+                                            {% if project.status == '0' %}
+                                                project_complete
+                                            {% elif project.status == '1' %}
+                                                project_Not_start
+                                            {% elif project.status == '2' %}
+                                                project_Pending
+                                            {% elif project.status == '3' %}
+                                                project_Working_on
+                                            {% endif %}
+                                        "
+                                    ></span>
+
+                                </div>
+
+                                <!-- Project effects section -->
+                                <div class="project-effects">
+                                    <span class="effect_icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-aperture"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg></span>
+                                    <span class="effects_values">{{project.Total_effects}}</span>
+                                    <span class="effect_title">Effect</span>
+                                </div>
+
+                                <!-- Project progress section -->
+                                <div class="project_progress">
+                                    <div class="progress_data">
+                                        <span>Progress</span>
+                                        <span>{{project.Progress}}%</span>
+                                    </div>
+                                    <div class="progress br-{{project.Progress}} progress-sm">
+                                        <div class="progress-bar 
+                                            {% if project.Progress <= 20  %}
+                                                bg-gradient-danger
+                                            {% elif project.Progress <= 40 %}
+                                                bg-gradient-warning
+                                            {% elif project.Progress <= 60 %}
+                                                bg-gradient-info
+                                            {% elif project.Progress <= 80 %}
+                                                bg-gradient-secondary
+                                            {% elif project.Progress < 100 %}
+                                                bg-gradient-dark
+                                            {% else %}
+                                                bg-gradient-success
+                                            {% endif %}
+                                        " role="progressbar" style="width: {{project.Progress}}%" aria-valuenow="{{project.Progress}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Project controls -->
+                            <div class="card card-controls">
+                                
+                                <!-- Run Project Button -->
+                                <div class="card card-control-icon">
+                                    <a href="{% url 'open_project' project.id %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                    </a>
+                                </div>
+
+                                <!-- Delete Project Button -->
+                                <div id="Delete_Project_button" project_title="{{project.Project_Name}}" project_id="{{project.id}}" class="card card-control-icon" data-toggle="modal" data-target="#Delete_Project">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+                   
+                </div>
+                <!-- End Projects -->
+
+                <!-- Start Models -->
+                <!-- Modal -->
+                <div class="modal fade" id="Delete_Project" tabindex="-1" role="dialog" aria-labelledby="deleteProject" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete Project</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <i class="flaticon-cancel-12 close" data-dismiss="modal"></i>
+                                <div class="add-contact-box">
+                                    <div class="add-contact-content">
+                                        <form id="deleteProjectForm" action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <span style="font-size: 18px; display: block; margin-bottom: 20px;">You are about to delete the <span id="span_project_title" style="color: #e7515a; font-weight: 700;"></span> project. Do you want to conferm delete?</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <span class="btn btn-dark" data-dismiss="modal"> <i class="flaticon-delete-1"></i> Cancel</span>
+                                                <button type="submit" class="float-left btn btn-danger">Delete</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- End Models -->
+                <!-- Modal -->
+                <div class="modal fade" id="Add_Project" tabindex="-1" role="dialog" aria-labelledby="addProject" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Create project</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <i class="flaticon-cancel-12 close" data-dismiss="modal"></i>
+                                <div class="add-contact-box">
+                                    <div class="add-contact-content">
+                                        <form action="{% url 'create_project' %}" method="post">
+                                            {% csrf_token %}
+                                            
+
+                                            <div class="form-group">
+                                                <p>Project title</p>
+                                                <label for="id_Project_Name" class="sr-only">Text</label>
+                                                <input id="id_Project_Name" type="text" name="Project_Name" maxlength="100" placeholder="Project title" class="form-control" required="">
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <span class="btn btn-dark" data-dismiss="modal"> <i class="flaticon-delete-1"></i> Cancel</span>
+                                                <button type="submit" class="float-left btn btn-success">Create project</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- End Models -->
+
+            </div>
+        </div>
+        </div>
+    </div>
+
+{% endblock body %}
+
+
+<!-- Current Page Scripts Files -->
+{% block currentPageScripts %}
+
+    <script type="text/javascript">
+        
+        $('body').addClass('alt-menu');
+
+    </script>
+
+    <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript">
+        
+        if(Cookies.getCookie('dark_mode') != ""){
+            $('.card').css('box-shadow','rgb(6 8 24 / 44%) 1px 2px 6px 2px');
+        }
+    </script>
+    <script type="text/javascript">
+
+        $(document).on('click', '#Delete_Project_button', function (){
+            let project_id = $(this).attr('project_id'),
+                project_title = $(this).attr('project_title');
+            $('#deleteProjectForm').attr('action','/projects/delete/' + project_id);
+            $('#span_project_title').html(project_title);
+        });
+        
+
+    </script>
+
+{% endblock currentPageScripts %}

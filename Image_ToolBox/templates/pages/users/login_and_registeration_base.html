@@ -1,0 +1,85 @@
+{% load static %}
+
+<!-- Document Type -->
+<!DOCTYPE html>
+
+<!-- Page Default Language -->
+<html lang="en">
+  
+  <!-- Head Section -->
+  <head>
+
+      <!-- Document Unicode -->
+      <meta charset="utf-8">
+
+      <!-- Edge Support -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+      <!-- Mobile viewport -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+
+      <!-- Page Title -->
+      <title>
+        {% block title %}
+
+        {% endblock title %}
+      </title>
+
+      <!-- Application Icon -->
+      <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico'%}"/>
+
+      <!-- Loading Page Style File -->
+      <link href="{% static 'css/loader.css' %}" rel="stylesheet" type="text/css" />
+
+      <!-- Loading Page Script File -->
+      <script src="{% static 'js/loader.js' %}"></script>
+
+
+      <!-- BEGIN GLOBAL MANDATORY STYLES -->
+      <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
+      <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+      <link href="{% static 'css/plugins.css' %}" rel="stylesheet" type="text/css" />
+      <!-- END GLOBAL MANDATORY STYLES -->
+      
+      <!-- Current Page Style -->
+      {% block currentPageStyles %} {% endblock currentPageStyles %}
+
+
+  </head>
+  <body class="form">
+
+        <!-- BEGIN LOADER -->
+        <div id="load_screen">
+          <div class="loader">
+            <div class="loader-content">
+              <div class="spinner-grow align-self-center"></div>
+            </div>
+          </div>
+        </div>
+        <!--  END LOADER -->
+
+        <!-- Body Content -->
+        {% block body %}
+
+        {% endblock body %}
+
+
+      <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+      <script src="{% static 'js/libs/jquery-3.1.1.min.js' %}"></script>
+      <script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
+      <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+      <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+      <!-- Current Page Scripts -->
+      {% block currentPageScripts %} {% endblock currentPageScripts %}
+
+      <!-- Loading Page screen control -->
+      <script>
+          var loaderElement = document.querySelector('#load_screen');
+          setTimeout( function() {
+              loaderElement.style.display = "none";
+          }, 3000);
+      </script>
+
+  </body>
+</html>
